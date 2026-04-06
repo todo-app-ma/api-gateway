@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+grpc:
+  client:
+    auth-service:
+      address: static://${AUTH_SERVICE_HOST:localhost}:${AUTH_SERVICE_GRPC_PORT:9091}
+      negotiation-type: plaintext
+    todo-service:
+      address: static://${TODO_SERVICE_HOST:localhost}:${TODO_SERVICE_GRPC_PORT:9092}
+      negotiation-type: plaintext
+
+jwt:
+  secret: ${JWT_SECRET:default-secret-change-in-production-min-256-bits}
