@@ -1,11 +1,13 @@
 package com.todoappma.apigateway.exception;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.Map;
 
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -17,6 +19,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleGeneral(Exception ex) {
+        log.error("Unexpected error: {}", ex.getMessage(), ex);
         return ResponseEntity.internalServerError()
                 .body(Map.of("errorCode", "GATEWAY_500", "message", "An unexpected error occurred"));
     }
